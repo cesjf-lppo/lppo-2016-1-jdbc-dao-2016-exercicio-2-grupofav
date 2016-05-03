@@ -7,6 +7,17 @@ public class Atividade {
     private String tipo;
     private Integer horas;
 
+    public Atividade() {
+    }
+
+    public Atividade(Long id, String funcionario, String descricao, String tipo, Integer horas) {
+        this.id = id;
+        this.funcionario = funcionario;
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.horas = horas;
+    }
+
     public Long getId() {
         return id;
     }
