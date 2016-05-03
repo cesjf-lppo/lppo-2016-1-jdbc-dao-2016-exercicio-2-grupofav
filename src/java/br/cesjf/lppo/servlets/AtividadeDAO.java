@@ -82,30 +82,31 @@ public class AtividadeDAO {
         Connection conexao = ConexaoJDBC.getInstance();
         Statement operacao = conexao.createStatement();
         try {
-            operacao.executeUpdate(String.format("UPDATE atividade SET funcionario='%s', descricao='%s', tipo, horas=%d WHERE id=%d", estab.getFuncionario(), estab.getDescricao(), estab.getTipo(), estab.getId()));
+            operacao.executeUpdate(String.format("UPDATE estabelecimento SET funcionario='%s', descricao='%s', tipo=%s WHERE id=%d", ativ.getFuncionario(), ativ.getDescricao(), ativ.getTipo(), ativ.getId()));
         } catch (SQLException ex) {
             throw new Exception(ex);
         }
     }
     
     Atividade buscaPorId(Long id) throws Exception {
-        Atividade estab = null;
+        Atividade ativ = null;
         try {
             Connection conexao = ConexaoJDBC.getInstance();
             Statement operacao = conexao.createStatement();
-            ResultSet resultado = operacao.executeQuery(String.format("SELECT * FROM atividade WHERE id=%d", id));
+            ResultSet resultado = operacao.executeQuery(String.format("SELECT * FROM estabelecimento WHERE id=%d", id));
             if (resultado.next()) {
-                estab = new Atividade;
-                estab.setId(resultado.getLong("id"));
-                estab.setNome(resultado.getString("nome"));
-                estab.setEndereco(resultado.getString("endereco"));
-                estab.setVotos(resultado.getInt("votos"));
+                ativ = new Atividade();
+                ativ.setId(resultado.getLong("id"));
+                ativ.setFuncionario(resultado.getString("fucionario"));
+                ativ.setDescricao(resultado.getString("descricao"));
+                ativ.setTipo(resultado.getString("tipo"));
+                ativ.setHoras(resultado.getInt("hora"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(EstabelecimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AtividadeDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception(ex);
         }
-        return estab;
+        return ativ;
     }
     
 }
