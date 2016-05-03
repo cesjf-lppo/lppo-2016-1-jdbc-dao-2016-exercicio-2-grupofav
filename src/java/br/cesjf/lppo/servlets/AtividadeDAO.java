@@ -66,36 +66,36 @@ public class AtividadeDAO {
         try {
             Connection conexao = ConexaoJDBC.getInstance();
             Statement operacao = conexao.createStatement();
-            operacao.executeUpdate("DELETE FROM estabelecimento WHERE id=" + id);
+            operacao.executeUpdate("DELETE FROM atividade WHERE id=" + id);
         } catch (SQLException ex) {
-            Logger.getLogger(EstabelecimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AtividadeDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new Exception(ex);
         }
 
     }
 
-    void excluir(Estabelecimento estab) throws Exception {
-        excluirPorId(estab.getId());
+    void excluir(Atividade ativ) throws Exception {
+        excluirPorId(ativ.getId());
     }
 
-    void salvar(Estabelecimento estab) throws Exception {
+    void salvar(Atividade ativ) throws Exception {
         Connection conexao = ConexaoJDBC.getInstance();
         Statement operacao = conexao.createStatement();
         try {
-            operacao.executeUpdate(String.format("UPDATE estabelecimento SET nome='%s', endereco='%s', votos=%d WHERE id=%d", estab.getNome(), estab.getEndereco(), estab.getVotos(), estab.getId()));
+            operacao.executeUpdate(String.format("UPDATE atividade SET funcionario='%s', descricao='%s', tipo, horas=%d WHERE id=%d", estab.getFuncionario(), estab.getDescricao(), estab.getTipo(), estab.getId()));
         } catch (SQLException ex) {
             throw new Exception(ex);
         }
     }
     
-    Estabelecimento buscaPorId(Long id) throws Exception {
-        Estabelecimento estab = null;
+    Atividade buscaPorId(Long id) throws Exception {
+        Atividade estab = null;
         try {
             Connection conexao = ConexaoJDBC.getInstance();
             Statement operacao = conexao.createStatement();
-            ResultSet resultado = operacao.executeQuery(String.format("SELECT * FROM estabelecimento WHERE id=%d", id));
+            ResultSet resultado = operacao.executeQuery(String.format("SELECT * FROM atividade WHERE id=%d", id));
             if (resultado.next()) {
-                estab = new Estabelecimento();
+                estab = new Atividade;
                 estab.setId(resultado.getLong("id"));
                 estab.setNome(resultado.getString("nome"));
                 estab.setEndereco(resultado.getString("endereco"));
